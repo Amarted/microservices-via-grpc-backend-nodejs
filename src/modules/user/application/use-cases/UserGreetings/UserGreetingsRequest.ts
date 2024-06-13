@@ -1,3 +1,3 @@
 export interface UserGreetingsRequest {
-  name: string;
+  username: string;
 }
