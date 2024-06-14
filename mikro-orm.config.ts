@@ -26,6 +26,7 @@ const config: MikroOrmModuleSyncOptions = {
   namingStrategy: EntityCaseNamingStrategy,
   debug: true,
   extensions: [Migrator],
+  metadataCache: {options: {cacheDir: 'src/modules/infrastructure/database/cache'}},
   migrations: {
     tableName: 'mikro_orm_migrations', // migrations table name
     path: 'src/modules/infrastructure/database/migrations', // path to folder with migration files
