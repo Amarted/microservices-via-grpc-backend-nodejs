@@ -1,5 +1,5 @@
 import { MigrationObject } from '@mikro-orm/core';
-import { Migration20240614130952_CreateUserTable } from '../../../../infrastructure/database/migrations/Migration20240614130952_CreateUserTable';
+import { Migration20240614130952_CreateUserTable } from './Migration20240614130952_CreateUserTable';
 
 export const authMigrationsList: MigrationObject[] = [
   {
