@@ -4,6 +4,7 @@ import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import dotenv from 'dotenv';
+import { authMigrationsList } from './src/modules/auth/infrastructure/database/migrations/authMigrationsList';
 
 dotenv.config();
 
@@ -27,12 +28,15 @@ const config: MikroOrmModuleSyncOptions = {
   extensions: [Migrator],
   migrations: {
     tableName: 'mikro_orm_migrations', // migrations table name
-    path: process.cwd() + '/src/infrastructure/database/migrations', // path to folder with migration files
+    path: 'src/modules/infrastructure/database/migrations', // path to folder with migration files
     glob: '!(*.d).{js,ts}', // how to match migration files (all .js and .ts files, but not .d.ts)
     transactional: true, // run each migration inside transaction
     disableForeignKeys: true, // try to disable foreign_key_checks (or equivalent)
     allOrNothing: true, // run all migrations in current batch in master transaction
     emit: 'ts', // migration generation mode
+    migrationsList: [
+      ...authMigrationsList,
+    ]
   },
   entities: ['dist/**/entities/**/*Entity.js', 'dist/**/schemas/**/*Schema.js'],
   entitiesTs: ['src/**/entities/**/*Entity.ts', 'src/**/schemas/**/*Schema.ts'],
