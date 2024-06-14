@@ -26,4 +26,8 @@ export class UserDatabaseRepository extends UserRepository {
 
     return user;
   }
+
+  public override findUserByUsername(username: string): Promise<User | null> {
+    return this.entityManager.getRepository(UserDatabaseEntity).findOne({ username });
+  }
 }
