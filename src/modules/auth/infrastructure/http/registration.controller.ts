@@ -1,20 +1,28 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+} from '@nestjs/common';
 import { UserRegistrationUseCase } from '../../application/use-cases/UserRegistration/UserRegistrationUseCase';
 import { UserRegistrationRequest } from '../../application/use-cases/UserRegistration/UserRegistrationRequest';
-
+import { HttpResponse } from '../../../infrastructure/http/HttpResponse';
 
 @Controller('api/auth/registration')
 export class RegistrationController {
   public constructor(
-    private registrationUseCase: UserRegistrationUseCase
+    private registrationUseCase: UserRegistrationUseCase,
   ) { }
 
   @Post()
-  public async registration(@Body() request: UserRegistrationRequest): Promise<void> {
+  public async registration(@Body() request: UserRegistrationRequest): Promise<HttpResponse<void>> {
     const registrationResult = await this.registrationUseCase.execute(request);
     if (registrationResult instanceof Error) {
-      const error = registrationResult;
-      throw new HttpException(`An error has occurred during the registration process: ${error.message}`, HttpStatus.BAD_REQUEST);
+      return {
+        status: 'failed',
+        errorMessage: registrationResult.message,
+      };
     }
+
+    return { status: 'successful' };
   }
 }
