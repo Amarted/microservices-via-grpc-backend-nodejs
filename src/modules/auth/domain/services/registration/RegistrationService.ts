@@ -7,7 +7,7 @@ export class RegistrationService {
   private saltRounds = 10;
 
   public constructor(
-    private userRepository: UserRepository
+    private userRepository: UserRepository,
   ) { }
 
   public async registration(username: string, password: string): Promise<true | Error> {
@@ -33,8 +33,8 @@ export class RegistrationService {
 
   private hashPassword(password: string): string {
     const salt = bcrypt.genSaltSync(this.saltRounds);
-    const hash = bcrypt.hashSync(password, salt)
+    const hash = bcrypt.hashSync(password, salt);
 
-    return hash
+    return hash;
   }
 }

@@ -13,11 +13,13 @@ export class UserRegistrationUseCase implements UseCase<UserRegistrationRequest,
   ) { }
 
   @EnsureRequestContext()
-  public async execute({ username, password }: UserRegistrationRequest): Promise<true | Error> {
-   const registrationResult = await this.registrationService.registration(username, password);
+  public async execute({
+    username, password,
+  }: UserRegistrationRequest): Promise<true | Error> {
+    const registrationResult = await this.registrationService.registration(username, password);
 
-   await this.entityManager.flush();
+    await this.entityManager.flush();
 
-   return registrationResult;
+    return registrationResult;
   }
 }
