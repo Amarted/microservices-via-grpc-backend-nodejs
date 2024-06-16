@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../../interfaces/UserRepository';
 import bcrypt from 'bcrypt';
+import { AccessService } from '../../../application/services/AccessService';
+
+interface RegistrationResult {
+  accessToken: string;
+}
 
 @Injectable()
 export class RegistrationService {
@@ -8,9 +13,10 @@ export class RegistrationService {
 
   public constructor(
     private userRepository: UserRepository,
+    private accessService: AccessService,
   ) { }
 
-  public async registration(username: string, password: string): Promise<true | Error> {
+  public async registration(username: string, password: string): Promise<RegistrationResult | Error> {
 
     if (await this.isUserWithUsernameExists(username)) {
       return new Error(`User with username '${username}' already exists.`);
@@ -24,7 +30,11 @@ export class RegistrationService {
       return error;
     }
 
-    return true;
+    const user = userCreationResult;
+
+    const accessToken: string = this.accessService.createToken(user.id);
+
+    return { accessToken };
   }
 
   private async isUserWithUsernameExists(username: string): Promise<boolean> {
