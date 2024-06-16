@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { AccessTokenData } from '../interfaces/AccessTokenData';
 import { HttpRequest } from '../../../infrastructure/http/HttpRequest';
+import jwt from 'jsonwebtoken';
 
 Injectable();
 export class AccessService {
-  public constructor(
-    private jwtService: JwtService,
-  ) { }
-
   public createToken(userId: string): string {
     const payload: AccessTokenData = { userId };
-    return this.jwtService.sign(payload, { expiresIn: process.env.accessTokenExpires });
+    if (!process.env.jwtSecret) {
+      throw new Error('Set the jwtSecret variable in the .env file.');
+    }
+
+    return jwt.sign(payload, process.env.jwtSecret, { expiresIn: process.env.accessTokenExpires });
   }
 
   public getTokenDataFromRequest(request: HttpRequest): AccessTokenData | null {
@@ -21,7 +21,10 @@ export class AccessService {
       const authHeaderValue = request.headers.authorization;
       const token = authHeaderValue ? authHeaderValue.split(' ')[1] : null;
       if (token) {
-        tokenData = this.jwtService.verify<AccessTokenData>(token, { secret: process.env.JwtSecret });
+        if (!process.env.jwtSecret) {
+          throw new Error('Set the jwtSecret variable in the .env file.');
+        }
+        tokenData = jwt.verify(token, process.env.jwtSecret) as AccessTokenData;
       } else {
         tokenData = null;
       }

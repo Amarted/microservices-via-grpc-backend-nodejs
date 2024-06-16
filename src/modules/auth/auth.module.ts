@@ -4,7 +4,6 @@ import { RegistrationService } from './domain/services/registration/Registration
 import { UserDatabaseRepository } from './infrastructure/database/repositories/UserDatabaseRepository';
 import { UserRegistrationUseCase } from './application/use-cases/UserRegistration/UserRegistrationUseCase';
 import { UserRepository } from './domain/interfaces/UserRepository';
-import { JwtModule } from '@nestjs/jwt';
 import { AccessService } from './application/services/AccessService';
 
 @Module({
@@ -22,9 +21,6 @@ import { AccessService } from './application/services/AccessService';
   ],
   exports: [
     AccessService,
-  ],
-  imports: [
-    JwtModule.register({ secret: process.env.jwtSecret }),
   ],
 })
 export class AuthModule { }
