@@ -1,4 +1,4 @@
-import { User } from '../types/User';
+import { User } from './User';
 
 export abstract class UserRepository {
   public abstract createUser(username: string, password: string): Promise<User | Error> | (User | Error);

@@ -3,7 +3,7 @@ import { RegistrationController } from './infrastructure/http/registration.contr
 import { RegistrationService } from './domain/services/registration/RegistrationService';
 import { UserDatabaseRepository } from './infrastructure/database/repositories/UserDatabaseRepository';
 import { UserRegistrationUseCase } from './application/use-cases/UserRegistration/UserRegistrationUseCase';
-import { UserRepository } from './domain/interfaces/UserRepository';
+import { UserRepository } from './domain/types/UserRepository';
 import { AccessService } from './application/services/AccessService';
 import { UserSignInController } from './infrastructure/http/sign-in.controller';
 import { SignInService } from './domain/services/sign-in/SignInService';

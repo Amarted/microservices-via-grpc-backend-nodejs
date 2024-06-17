@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UseCase } from '../../../../application/interfaces/UseCase';
+import { UseCase } from '../../../../application/types/UseCase';
 import { UserGreetingsRequest } from './UserGreetingsRequest';
 import { UserGreetingsResponse } from './UserGreetingsResponse';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AccessTokenData } from '../interfaces/AccessTokenData';
+import { AccessTokenData } from '../types/AccessTokenData';
 import { HttpRequest } from '../../../infrastructure/http/HttpRequest';
 import jwt from 'jsonwebtoken';
 

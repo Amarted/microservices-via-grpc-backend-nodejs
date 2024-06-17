@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UseCase } from '../../../../application/interfaces/UseCase';
+import { UseCase } from '../../../../application/types/UseCase';
 import { UserRegistrationRequest } from './UserRegistrationRequest';
 import { RegistrationService } from '../../../domain/services/registration/RegistrationService';
 import { EnsureRequestContext } from '@mikro-orm/core';
