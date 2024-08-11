@@ -17,10 +17,10 @@ export class UserController {
 
   @Post('greetings')
   @Header('Content-Type', 'application/json')
-  public greetings(@Body() request: UserGreetingsRequest): HttpResponse<UserGreetingsResponse> {
+  public async greetings(@Body() request: UserGreetingsRequest): Promise<HttpResponse<UserGreetingsResponse>> {
     return {
       status: 'successful',
-      response: this.userGreetingsUseCase.execute(request),
+      response: await this.userGreetingsUseCase.execute(request),
     };
   }
 }
