@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package Api.GrpcProto;
+
+// The application interface through the RPC protocol.
+service UserGreetingRpcService {
+  // Greets a user with a username obtained from a request parameter.
+  rpc greet(UserGreetingsRequest) returns (UserGreetingsResponse) {}
+}
+
+message UserGreetingsRequest {
+  string username = 1;
+}
+
+message UserGreetingsResponse {
+  // The message with user greetings
+  string greetings = 1;
+}
